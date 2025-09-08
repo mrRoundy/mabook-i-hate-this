@@ -43,59 +43,46 @@
             transform: translateY(0);
         }
 
-        /* --- Interactive 3D Book --- */
-        .book-container {
-            perspective: 1200px;
-        }
-        .book {
-            width: 220px;
-            height: 300px;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 1.2s cubic-bezier(0.075, 0.82, 0.165, 1);
-            transform: rotateY(-35deg);
-        }
-        .book-container:hover .book {
-            transform: rotateY(-155deg);
-        }
-        .book-cover, .book-back, .book-spine {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 1px solid #173F25;
-        }
-        .book-cover {
-            transform: translateZ(20px);
-            background: linear-gradient(45deg, #173F25, #2a5d3f);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-        }
-        .book-spine {
-            width: 40px;
-            height: 100%;
-            background: #173F25;
-            transform: rotateY(-90deg) translateX(-20px);
-            transform-origin: left;
-        }
-         .book-back {
-            transform: rotateY(180deg) translateZ(20px);
-            background-color: #173F25;
-        }
-        .book-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out 0.7s;
-        }
-        .book-container:hover .book-content {
-           opacity: 1;
-        }
+        /* --- NEW: Simple Cover Slide Book Animation --- */
+    .new-book-container {
+        position: relative; /* Establishes a positioning context */
+        width: 250px;
+        height: 320px;
+        background-color: #FDF9F6; /* Cream background */
+        border: 1px solid #173F25;
+        border-radius: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        overflow: hidden; /* Hides the cover as it slides out */
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .new-book-cover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, #173F25, #2a5d3f);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        /* Smooth transition for the slide and fade effect */
+        transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.7s ease;
+        cursor: pointer;
+    }
+
+    /* This is the hover effect */
+    .new-book-container:hover .new-book-cover {
+        /* Slides the cover 100% to the left and fades it out */
+        transform: translateX(-100%);
+        opacity: 0;
+    }
     </style>
 </head>
 <body class="overflow-x-hidden">
@@ -180,18 +167,14 @@
                         </ul>
                     </div>
                     <div class="flex justify-center items-center h-96 reveal" style="transition-delay: 200ms;">
-                        <div class="book-container">
-                            <div class="book">
-                                <div class="book-cover">
-                                    <h3 class="text-white font-bold text-3xl" style="font-family: 'Playfair Display', serif;">The Old Way</h3>
-                                    <p class="text-xs text-[#FDF9F6]/50 mt-2">Biased reviews & ratings</p>
-                                </div>
-                                <div class="book-spine"></div>
-                                <div class="book-back"></div>
-                            </div>
-                             <div class="book-content text-[#173F25] text-center">
+                        <div class="new-book-container">
+                            <div class="new-book-content">
                                 <h3 class="font-bold text-3xl" style="font-family: 'Playfair Display', serif;">The Mabook Way</h3>
-                                <p class="mt-2 text-sm text-[#173F25]/70">Insights from within the book.</p>
+                                <p class="mt-2 text-sm text-[#173F25]/70">Powered by the book's own words.</p>
+                            </div>
+                            <div class="new-book-cover">
+                                <h3 class="text-white font-bold text-3xl" style="font-family: 'Playfair Display', serif;">The Old Way</h3>
+                                <p class="text-xs text-[#FDF9F6]/50 mt-2">Opinions, ratings, and guesswork.</p>
                             </div>
                         </div>
                     </div>
@@ -267,7 +250,7 @@
             loadComponent('footer.html', 'footer-container', () => {
                 const yearSpan = document.getElementById('footer-year');
                 if (yearSpan) {
-                    yearSpan.textContent = new Date().getFullYear();
+                    yearSpan.textContent = new aDate().getFullYear();
                 }
             });
         });
