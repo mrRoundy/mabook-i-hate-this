@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Book Spine Test</title>
+    <style>
+        /* This centers the book on the page for easy viewing */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0; /* Light grey background */
+            margin: 0;
+        }
+
+        /* --- 3D BOOK STYLES (DIAGNOSTIC VERSION) --- */
+
+        /* This creates the 3D space. Without it, everything is flat. */
+        .book-container {
+            perspective: 1500px;
+        }
+
+        /* This is the parent for all book parts. It handles the 3D transformations. */
+        .book {
+            width: 220px;
+            height: 300px;
+            position: relative;
+            transform-style: preserve-3d; /* This is crucial for 3D */
+            transition: transform 1s ease; /* Smooth rotation */
+            transform: rotateY(-35deg); /* Initial tilted view */
+        }
+
+        /* This is the hover effect. When you mouse over the container, the book rotates. */
+        .book-container:hover .book {
+            transform: rotateY(-145deg); /* Rotates further to reveal the spine */
+        }
+
+        /* This is the front cover of the book. */
+        .book-cover {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #173F25; /* Dark green */
+            transform: translateZ(20px); /* Pushes the cover forward */
+        }
+
+        /* This is the SPINE. It's a narrow div rotated to connect the front and back.
+        I've added a bright red border to make it extremely visible.
+        */
+        .book-spine {
+            position: absolute;
+            width: 40px;  /* The thickness of the book */
+            height: 100%;
+            background-color: #173F25; /* Dark green */
+            
+            /* --- DIAGNOSTIC BORDER --- */
+            border: 3px solid red; 
+            box-sizing: border-box;
+            
+            /* This rotates it and pushes it into place */
+            transform: rotateY(-90deg) translateZ(20px); 
+        }
+
+        /* This is the back cover of the book. */
+        .book-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #173F25; /* Dark green */
+            transform: rotateY(180deg) translateZ(20px); /* Flips it and pushes it back */
+        }
+    </style>
+</head>
+<body>
+    <h1>Hover over the book</h1>
+    <div class="book-container">
+        <div class="book">
+            <div class="book-cover"></div>
+            <div class="book-spine"></div>
+            <div class="book-back"></div>
+        </div>
+    </div>
+</body>
+</html>
